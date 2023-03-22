@@ -38,7 +38,7 @@ class Channel:
 
     def to_json(self):
         channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
-        with open(vdud.json,"w") as write_file:
+        with open('vdud.json',"w") as write_file:
             json.dumps(channel, write_file)
             return vdud.json
 
