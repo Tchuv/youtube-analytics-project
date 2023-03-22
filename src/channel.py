@@ -12,7 +12,7 @@ class Channel:
     """Класс для ютуб-канала"""
 
     def __init__(self, channel_id: str) -> None:
-        self.channel_id = channel_id
+        self.__channel_id = channel_id
         self._init_from_api()
 
         # print(self.channel_id)
@@ -35,5 +35,3 @@ class Channel:
         self.subscriber_count = int(channel['items'][0]['statistics']['subscriberCount'])
         self.video_count = int(channel['items'][0]['statistics']['videoCount'])
         self.view_count = int(channel['items'][0]['statistics']['viewCount'])
-
-
