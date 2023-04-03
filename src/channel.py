@@ -23,6 +23,12 @@ class Channel:
         channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
         print(json.dumps(channel, indent=2, ensure_ascii=False))
 
+    @property
+    def channel_id(self):
+        return self.__channel_id
+
+
+
     def get_service():
         service = build('youtube', 'v3', developerKey=os.getenv('YT_API_KEY'))
         return service
@@ -36,9 +42,16 @@ class Channel:
         self.video_count = int(channel['items'][0]['statistics']['videoCount'])
         self.view_count = int(channel['items'][0]['statistics']['viewCount'])
 
-    def to_json(self):
-        channel = youtube.channels().list(id=self.channel_id, part='snippet,statistics').execute()
-        with open('vdud.json',"w") as write_file:
-            json.dumps(channel, write_file)
-            return vdud.json
+    def to_json(self, filename: str) -> None:
+            dict_to_write = {
+            'channel_id': self.__channel_id,
+            'title': self.title,
+            'description': self.description,
+            'url': self.url,
+            'subscriber_count': self.subscriber_count,
+            'video_count': self.video_count,
+            'view_count': self.view_count,
+        }
+            with open(filename, 'w') as fp:
+                json.dump(dict_to_write, fp)
 
