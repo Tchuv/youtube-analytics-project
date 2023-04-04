@@ -27,8 +27,6 @@ class Channel:
     def channel_id(self):
         return self.__channel_id
 
-
-
     def get_service(self):
         service = build('youtube', 'v3', developerKey=os.getenv('YT_API_KEY'))
         return service
@@ -43,7 +41,7 @@ class Channel:
         self.view_count = int(channel['items'][0]['statistics']['viewCount'])
 
     def to_json(self, filename: str) -> None:
-            dict_to_write = {
+        dict_to_write = {
             'channel_id': self.__channel_id,
             'title': self.title,
             'description': self.description,
@@ -52,21 +50,24 @@ class Channel:
             'video_count': self.video_count,
             'view_count': self.view_count,
         }
-            with open(filename, 'w') as fp:
-                json.dump(dict_to_write, fp)
+        with open(filename, 'w') as fp:
+            json.dump(dict_to_write, fp)
 
     def __str__(self):
         return f"{self.title} {self.url}"
 
     def __add__(self, other):
+        """ Возможность складывать"""
         return self.subscriber_count + other.subscriber_count
 
     def __sub__(self, other):
+        """Возможность вычитать"""
         return self.subscriber_count - other.subscriber_count
 
     def __gt__(self, other):
+        """Возможность строго сравнивать"""
         return self.subscriber_count > other.subscriber_count
 
     def __ge__(self, other):
+        """ Возможность не строго сравнивать"""
         return self.subscriber_count >= other.subscriber_count
-
