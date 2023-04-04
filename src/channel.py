@@ -29,7 +29,7 @@ class Channel:
 
 
 
-    def get_service():
+    def get_service(self):
         service = build('youtube', 'v3', developerKey=os.getenv('YT_API_KEY'))
         return service
 
@@ -54,4 +54,19 @@ class Channel:
         }
             with open(filename, 'w') as fp:
                 json.dump(dict_to_write, fp)
+
+    def __str__(self):
+        return f"{self.title} {self.url}"
+
+    def __add__(self, other):
+        return self.subscriber_count + other.subscriber_count
+
+    def __sub__(self, other):
+        return self.subscriber_count - other.subscriber_count
+
+    def __gt__(self, other):
+        return self.subscriber_count > other.subscriber_count
+
+    def __ge__(self, other):
+        return self.subscriber_count >= other.subscriber_count
 
