@@ -10,22 +10,22 @@ class Video:
 
     @property
     def video(self):
-        return Channel.get_service().videos().list(part='snippet,statistics,contentDetails,topicDetails',id=self.__id_video).execute()
+        return Channel.get_service(self).videos().list(part='snippet,statistics,contentDetails,topicDetails',id=self.__id_video).execute()
 
     @property
     def title(self):
-        return self.video[0]['snippet']['title']
+       return self.video['items'][0]['snippet']['title']
 
     @property
     def url(self):
         return f'https://www.youtube.com/watch?v={self.__id_video}'
     @property
     def views_count(self):
-        return self.video[0]['statistics']['viewCount']
+        return self.video['items'][0]['statistics']['viewCount']
 
     @property
     def likes_count(self):
-        return self.video[0]['statistics'][likeCount]
+        return self.video['items'][0]['statistics'][likeCount]
 
     def __str__(self):
         return self.title
