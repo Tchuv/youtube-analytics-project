@@ -6,32 +6,40 @@ class Video:
 
     @property
     def id_video(self):
+        """ инициализация ID видео экземпляра"""
         return self.__id_video
 
     @property
     def video(self):
+        """Получение данных по ID"""
         return Channel.get_service(self).videos().list(part='snippet,statistics,contentDetails,topicDetails',id=self.__id_video).execute()
 
     @property
     def title(self):
-       return self.video['items'][0]['snippet']['title']
+        """ инициализация названия видео экземпляра"""
+        return self.video['items'][0]['snippet']['title']
 
     @property
     def url(self):
+        """ инициализация ссылки на видео экземпляра"""
         return f'https://www.youtube.com/watch?v={self.__id_video}'
     @property
     def views_count(self):
+        """инициализация количества просмотров ID видео экземпляра"""
         return self.video['items'][0]['statistics']['viewCount']
 
     @property
     def likes_count(self):
+        """ инициализация количества лайков видео экземпляра"""
         return self.video['items'][0]['statistics'][likeCount]
 
     def __str__(self):
+        """" инициализация Метода str для вывода названия видео экземпляра"""
         return self.title
 
 
 class PLVideo(Video):
+    """ Создание класса с инициализацией атрибутов согласно ТЗ"""
     def __init__(self, id_video, playlist_id):
         self.__id_video = id_video
         self.__playlist_id = playlist_id
