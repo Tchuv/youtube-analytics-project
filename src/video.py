@@ -48,4 +48,8 @@ class PLVideo(Video):
         self.__playlist_id = playlist_id
         super().__init__(id_video)
 
+    @property
+    def playlist_id(self):
+        return self.__playlist_id
+
         
