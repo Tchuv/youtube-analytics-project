@@ -4,7 +4,7 @@ import isodate
 import datetime
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
-
+from googleapiclient.errors import HttpError
 from setting import ENV_FILE
 
 load_dotenv(ENV_FILE)
@@ -20,10 +20,8 @@ class Youtube:
 
     @classmethod
     def get_video(cls, video_id):
-        return cls.__youtube.videos().list(
-            part='snippet,statistics,contentDetails,topicDetails',
-            id=video_id
-        ).execute()
+        return cls.__youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails', id=video_id).execute()
+
 
     @classmethod
     def get_playlist(cls, playlist_id):

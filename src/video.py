@@ -1,14 +1,18 @@
 from src.channel1 import Youtube
-
+from googleapiclient.errors import HttpError
 class Video:
     def __init__(self, id_video):
-        self.__id_video = id_video
-        self.__video = Youtube.get_video(self.__id_video)
-        self.__title = self.video['items'][0]['snippet']['title']
-        self.__url = f'https://www.youtube.com/watch?v={self.__id_video}'
-        self.__views_count = self.video['items'][0]['statistics']['viewCount']
-        self.__likes_count = self.video['items'][0]['statistics']['likeCount']
-
+        try:
+            self.__id_video = id_video
+            self.__video = Youtube.get_video(self.__id_video)
+            self.__title = self.video['items'][0]['snippet']['title']
+            self.__url = f'https://www.youtube.com/watch?v={self.__id_video}'
+            self.__views_count = self.video['items'][0]['statistics']['viewCount']
+            self.__likes_count = self.video['items'][0]['statistics']['likeCount']
+        except BaseException as e:
+            self.__title = None
+            self.__likes_count = None
+            print(e)
     @property
     def id_video(self):
         """ инициализация ID видео экземпляра"""
