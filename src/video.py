@@ -9,10 +9,10 @@ class Video:
             self.__url = f'https://www.youtube.com/watch?v={self.__id_video}'
             self.__views_count = self.video['items'][0]['statistics']['viewCount']
             self.__likes_count = self.video['items'][0]['statistics']['likeCount']
-        except BaseException as e:
+        except IndexError:
             self.__title = None
             self.__likes_count = None
-            print(e)
+
     @property
     def id_video(self):
         """ инициализация ID видео экземпляра"""
